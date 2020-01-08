@@ -19,9 +19,7 @@ namespace VkBot.Controllers
         private readonly IVkApi _vkApi;
 
      
-        /// <summary>
-        /// Конфигурация приложения
-        /// </summary>
+        
 
 
         public CallbackController(IVkApi vkApi, IConfiguration configuration)
@@ -33,19 +31,19 @@ namespace VkBot.Controllers
         [HttpPost]
         public IActionResult Callback([FromBody] Updates updates)
         {
-            // Тип события
+          
             switch (updates.Type)
             {
-                // Ключ-подтверждение
+               
                 case "confirmation":
                     {
                         return Ok(_configuration["Config:Confirmation"]);
                     }
 
-                // Новое сообщение
+               
                 case "message_new":
                     {
-                        // Десериализация
+                       
                         var msg = Message.FromJson(new VkResponse(updates.Object));
                         _vkApi.Messages.Send(new MessagesSendParams
                         {
